@@ -25,6 +25,13 @@ const contacts = [
   }
 ]
 
+const generateId = () => {
+  const maxId = contacts.length > 0
+    ? Math.max(...contacts.map(n => n.id))
+    : 0
+  return maxId + 1
+}
+
 app.get('/api/contacts', (request, response) => {
   response.json(contacts)
 })
@@ -42,6 +49,33 @@ app.get('/api/contacts/:id', (request, response) => {
   } else {
     response.status(404).end()
   }
+})
+
+app.delete('/api/contacts/:id', (request, response) => {
+  const id = Number(request.params.id)
+  contacts = contacts.filter(contact => contact.id !== id)
+  response.status(204).end()
+})
+
+app.post('/api/contacts', (request, response) => {
+
+  const body = request.body
+  if (!body.content) {
+    return response.status(400).json({
+      error: 'content missing'
+    })
+  }
+
+  const contact = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+  }
+
+
+  contacts = contacts.concat(contact)
+
+  response.json(contact)
 })
 
 
