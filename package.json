@@ -11,10 +11,12 @@
   "author": "Gabriel Kelly",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.2",
     "nodemon": "^3.1.0"
   }
 }
